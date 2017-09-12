@@ -27,7 +27,7 @@ with open("events.json") as json_file:
                     hits=[]
                     for xyz in co['pos']:
                         hits.append({"x":xyz[0],"y":xyz[1],"z":xyz[2]})
-                    co['hits']=hits
+                    co['hit']=hits
                     del co['pos']
                 print(co)
                 allDocs.append(co)
