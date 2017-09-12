@@ -5,12 +5,12 @@ from elasticsearch.helpers import bulk
 allDocs=[]
 
 es = Elasticsearch([{'host':'atlas-kibana.mwt2.org', 'port':9200}],timeout=60)
-
+ind='ar-events'
+        
 with open("events.json") as json_file:
     events = json.load(json_file)
     print('events:',len(events))
     for e in events:
-        ind='ar_events'
         eid=str(e['eventnr'])
         ev={'_index':ind, '_type':'event', 'description':e['description'], 'runnr':e['runnr'], '_id':eid}
         allDocs.append(ev)
