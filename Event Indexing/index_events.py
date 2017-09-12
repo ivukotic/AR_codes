@@ -1,7 +1,10 @@
 import json
-import elasticsearch
+from elasticsearch import Elasticsearch
+from elasticsearch.helpers import bulk
 
 allDocs=[]
+
+es = Elasticsearch([{'host':'atlas-kibana.mwt2.org', 'port':9200}],timeout=60)
 
 with open("events.json") as json_file:
     events = json.load(json_file)
@@ -29,3 +32,6 @@ with open("events.json") as json_file:
                 print(co)
                 allDocs.append(co)
 
+res = bulk(client=es, actions=allDocs, stats_only=True, timeout="5m")
+print(res)
+print('Done.')
